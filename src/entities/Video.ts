@@ -1,10 +1,10 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
 
 @Entity("videos")
 export class Video {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
