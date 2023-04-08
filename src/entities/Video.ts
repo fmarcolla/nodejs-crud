@@ -5,7 +5,7 @@ import { Category } from "./Category";
 export class Video {
 
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    id?: number;
 
     @Column()
     name: string;
@@ -21,8 +21,8 @@ export class Video {
 
     @ManyToOne(() => Category)
     @JoinColumn({ name: "category_id" })
-    category: Category;
+    category?: Category;
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at?: Date;
 }

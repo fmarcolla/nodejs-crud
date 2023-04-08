@@ -1,5 +1,5 @@
-import { AppDataSource } from '../database/data-source';
 import { Category } from "../entities/Category";
+import { ICategoryRepository } from "../repositories/ICategoryRepository";
 
 type CategoryRequest = {
     name: string;
@@ -7,21 +7,20 @@ type CategoryRequest = {
 }
 
 export class CreateCategoryService {
-    async execute({ name, description }: CategoryRequest): Promise<Category | Error>{
-        const repo = AppDataSource.getRepository(Category);
+    constructor(private categoryRepository: ICategoryRepository){}
 
-        const existsCategory = await repo.findOneBy({ name });
+    async execute({ name, description }: CategoryRequest): Promise<Category | Error>{
+
+        const existsCategory = await this.categoryRepository.findByName(name);
 
         if(existsCategory) {
             return new Error("Category already exists");
         }
 
-        const category = repo.create({
-           name,
-           description 
-        });
-
-        await repo.save(category);
+        const category = await this.categoryRepository.create({
+            name,
+            description 
+         });
 
         return category;
     }

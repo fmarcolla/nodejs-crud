@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { CreateVideoService } from "../services/CreateVideoService";
+import { TypeormCategoryRepository } from "../repositories/typeorm/TypeormCategoryRepository";
+import { TypeormVideoRepository } from "../repositories/typeorm/TypeormVideoRepository";
 
 export class CreateVideoController {
     async handle(request: Request, reponse: Response){
@@ -9,7 +11,9 @@ export class CreateVideoController {
             return reponse.status(400).json('Campos inválidos');
         }
 
-        const service = new CreateVideoService();
+        const videoRepo = new TypeormVideoRepository();
+        const categoryRepo = new TypeormCategoryRepository();
+        const service = new CreateVideoService(videoRepo, categoryRepo);
         
         const result = await service.execute({ name, description, duration, category_id });
 

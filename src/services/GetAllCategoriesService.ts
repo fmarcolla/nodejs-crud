@@ -1,11 +1,11 @@
-import { AppDataSource } from '../database/data-source';
 import { Category } from "../entities/Category";
+import { ICategoryRepository } from "../repositories/ICategoryRepository";
 
 export class GetAllCAtegoriesService {
-    async execute(): Promise<Category[] | Error>{
-        const repo = AppDataSource.getRepository(Category);
+    constructor(private categoryRepository: ICategoryRepository){}
 
-        const categories = await repo.find();
+    async execute(): Promise<Category[] | Error>{
+        const categories = await this.categoryRepository.findAll();
 
         return categories;
     }

@@ -1,11 +1,13 @@
 import { Request, response, Response } from "express";
 import { DeleteCategoryService } from "../services/DeleteCategoryService";
+import { TypeormCategoryRepository } from "../repositories/typeorm/TypeormCategoryRepository";
 
 export class DeleteCategoryController {
     async handle(request: Request, reponse: Response){
         const { id } = request.params;
 
-        const service = new DeleteCategoryService();
+        const categoryRepo = new TypeormCategoryRepository();
+        const service = new DeleteCategoryService(categoryRepo);
         
         const result = await service.execute(+id);
 

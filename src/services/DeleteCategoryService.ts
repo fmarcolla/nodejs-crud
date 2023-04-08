@@ -1,16 +1,18 @@
 import { AppDataSource } from '../database/data-source';
 import { Category } from "../entities/Category";
+import { ICategoryRepository } from "../repositories/ICategoryRepository";
 
 export class DeleteCategoryService {
-    async execute(id: number): Promise<Category[] | Error>{
-        const repo = AppDataSource.getRepository(Category);
+    constructor(private categoryRepository: ICategoryRepository){}
 
-        const category = await repo.findOne({where: {id}});
+    async execute(id: number): Promise<Category[] | Error>{
+
+        const category = await this.categoryRepository.findById(id);
 
         if(!category){
             return new Error("Category does not exists!");
         }
 
-        await repo.delete(id);
+        await this.categoryRepository.delete(id);
     }
 }

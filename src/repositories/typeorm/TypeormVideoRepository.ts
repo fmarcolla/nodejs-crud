@@ -1,28 +1,40 @@
 import { AppDataSource } from '../../database/data-source';
+import { Repository } from 'typeorm';
 import { Video } from "../../entities/Video";
-import { IVideoRepositories } from "../IVideoRepositories";
+import { IVideoRepository } from "../IVideoRepository";
 
-class TypeormVideoRepository implements IVideoRepositories {
-    async create({ name, description, duration, category_id }: Video): Promise<Video>{
-        const repo = AppDataSource.getRepository(Video);
+class TypeormVideoRepository implements IVideoRepository {
+    private repo: Repository<Video>;
+    
+    constructor(){
+        this.repo = AppDataSource.getRepository(Video);
+    }
 
-        const video = repo.create({
+    async create({ name, description, duration, category_id }: Video): Promise<Video> {
+        const video = this.repo.create({
             name,
             description,
             duration,
             category_id
          });
  
-         await repo.save(video);
+         await this.repo.save(video);
  
          return video
     }
 
-    async exists(id: number){
-        const repo = AppDataSource.getRepository(Video);
-        const video = await repo.findOne({where: {id}});
+    async findById(id: number): Promise<Video> {
+        const video = await this.repo.findOne({where: {id}});
         
-        return !!video;
+        return video;
+    }
+
+    async findAll(): Promise<Video[]> {
+        const videos = await this.repo.find({
+            relations: ["category"]
+        });
+
+        return videos;
     }
 }
 

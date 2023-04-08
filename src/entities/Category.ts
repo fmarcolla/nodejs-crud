@@ -4,7 +4,7 @@ import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from "typeor
 export class Category {
 
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    id?: number;
 
     @Column()
     name: string;
@@ -13,5 +13,5 @@ export class Category {
     description: string;
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at?: Date;
 }

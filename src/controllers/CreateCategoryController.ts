@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateCategoryService } from "../services/CreateCategoryService";
+import { TypeormCategoryRepository } from "../repositories/typeorm/TypeormCategoryRepository";
 
 export class CreateCategoryController {
     async handle(request: Request, reponse: Response){
@@ -9,7 +10,8 @@ export class CreateCategoryController {
             return reponse.status(400).json('Campos inválidos');
         }
 
-        const service = new CreateCategoryService();
+        const categoryRepo = new TypeormCategoryRepository();
+        const service = new CreateCategoryService(categoryRepo);
         
         const result = await service.execute({ name, description });
 

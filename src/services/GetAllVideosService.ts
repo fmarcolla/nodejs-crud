@@ -1,13 +1,11 @@
-import { AppDataSource } from '../database/data-source';
 import { Video } from "../entities/Video";
+import { IVideoRepository } from "../repositories/IVideoRepository";
 
 export class GetAllVideosService {
-    async execute(): Promise<Video[] | Error>{
-        const repo = AppDataSource.getRepository(Video);
+    constructor(private videoRepository: IVideoRepository){}
 
-        const videos = await repo.find({
-            relations: ["category"]
-        });
+    async execute(): Promise<Video[] | Error>{
+        const videos = await this.videoRepository.findAll();
 
         return videos;
     }

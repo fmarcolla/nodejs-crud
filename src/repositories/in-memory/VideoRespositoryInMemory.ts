@@ -1,8 +1,8 @@
 import { Video } from "../../entities/Video";
-import { IVideoRepositories } from "../IVideoRepositories";
+import { IVideoRepository } from "../IVideoRepository";
 import { v4 as uuid } from "uuid";
 
-class VideoRepositoryInMemory implements IVideoRepositories {
+class VideoRepositoryInMemory implements IVideoRepository {
     private videos: Video[] = [];
     
     async create(video: Video): Promise<Video>{
@@ -14,9 +14,13 @@ class VideoRepositoryInMemory implements IVideoRepositories {
         return video;
     }
 
-    async exists(id: number): Promise<boolean>{
-        const video = this.videos.some((video) => video.id === id);
+    async findById(id: number): Promise<Video> {
+        const video = this.videos.find((video) => video.id === id);
         return video;
+    }
+
+    async findAll(): Promise<Video[]> {
+        return this.videos;
     }
 }
 

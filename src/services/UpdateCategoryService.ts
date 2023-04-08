@@ -1,5 +1,5 @@
-import { AppDataSource } from '../database/data-source';
 import { Category } from "../entities/Category";
+import { ICategoryRepository } from "../repositories/ICategoryRepository";
 
 type CategoryUdpateRequest = {
     id: number,
@@ -8,10 +8,10 @@ type CategoryUdpateRequest = {
 }
 
 export class UpdateCategoryService {
-    async execute({ id, name, description }: CategoryUdpateRequest): Promise<Category | Error>{
-        const repo = AppDataSource.getRepository(Category);
+    constructor(private categoryRepository: ICategoryRepository){}
 
-        const category = await repo.findOne({where: {id}});
+    async execute({ id, name, description }: CategoryUdpateRequest): Promise<Category | Error>{
+        const category = await this.categoryRepository.findById(id);
 
         if(!category){
             return new Error("Category does not exists!");
@@ -20,7 +20,7 @@ export class UpdateCategoryService {
         category.name = name ? name : category.name;
         category.description = description ? description : category.description;
 
-        await repo.save(category);
+        await this.categoryRepository.update(category);
 
         return category;
     }
