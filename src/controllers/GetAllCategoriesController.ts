@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { GetAllCAtegoriesService } from "../services/GetAllCategoriesService";
-import { TypeormCategoryRepository } from "../repositories/typeorm/TypeormCategoryRepository";
 
-export class GetAllCAtegoriesController {
+export class GetAllCategoriesController {
+    constructor(private getAllCAtegoriesService: GetAllCAtegoriesService){}
+
     async handle(request: Request, reponse: Response){
-        const categoryRepo = new TypeormCategoryRepository();
-        const service = new GetAllCAtegoriesService(categoryRepo);
-        
-        const categories = await service.execute();
+        const categories = await this.getAllCAtegoriesService.execute();
 
         return reponse.json(categories);
     }

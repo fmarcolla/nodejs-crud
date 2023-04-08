@@ -1,10 +1,9 @@
-import { Video } from "../entities/Video";
 import { IVideoRepository } from "../repositories/IVideoRepository";
 
 export class GetAllVideosService {
     constructor(private videoRepository: IVideoRepository){}
 
-    async execute(): Promise<Video[] | Error>{
+    async execute(){
         const videos = await this.videoRepository.findAll();
 
         return videos;

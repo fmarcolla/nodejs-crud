@@ -1,19 +1,20 @@
 import { Router } from "express";
-import { CreateCategoryController } from "./controllers/CreateCategoryController";
-import { GetAllCAtegoriesController } from "./controllers/GetAllCategoriesController";
-import { DeleteCategoryController } from "./controllers/DeleteCategoryController";
-import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
-import { CreateVideoController } from "./controllers/CreateVideoController";
-import { GetAllVIdeosController } from "./controllers/GetAllVIdeosController";
+
+import { CreateVideoFactory } from "./factories/CreateVideoFactory";
+import { UpdateCategoryFactory } from "./factories/UpdateCategoryFactory";
+import { GetAllVideoFactory } from "./factories/GetAllVideoFactory";
+import { DeleteCategoryFactory } from "./factories/DeleteCategoryFactory";
+import { GetAllCategoryFactory } from "./factories/GetAllCategoryFactory";
+import { CreateCategoryFactory } from "./factories/CreateCategoryFactory";
 
 const routes = Router();
 
-routes.post("/categories", new CreateCategoryController().handle);
-routes.get("/categories", new GetAllCAtegoriesController().handle);
-routes.delete("/categories/:id", new DeleteCategoryController().handle);
-routes.put("/categories/:id", new UpdateCategoryController().handle);
+routes.post("/categories", (request, reponse) => CreateCategoryFactory().handle(request, reponse));
+routes.put("/categories/:id", (request, reponse) => UpdateCategoryFactory().handle(request, reponse));
+routes.get("/categories", (request, reponse) => GetAllCategoryFactory().handle(request, reponse));
+routes.delete("/categories/:id", (request, reponse) => DeleteCategoryFactory().handle(request, reponse));
 
-routes.post("/videos", new CreateVideoController().handle);
-routes.get("/videos", new GetAllVIdeosController().handle);
+routes.post("/videos", (request, reponse) => CreateVideoFactory().handle(request, reponse));
+routes.get("/videos", (request, reponse) => GetAllVideoFactory().handle(request, reponse));
 
 export { routes };
