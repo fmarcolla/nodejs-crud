@@ -2,7 +2,7 @@
 CRUD Application in NodeJs, PostgreSql and TypeORM
 
 # Run Project
-
+<!-- npm run dev -->
 
 # Migrations
 <!-- Criar migration -->
