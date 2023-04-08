@@ -3,7 +3,7 @@ import { Video } from "../../entities/Video";
 import { IVideoRepositories } from "../IVideoRepositories";
 
 class TypeormVideoRepository implements IVideoRepositories {
-    async create({ name, description, duration, category_id }: Video){
+    async create({ name, description, duration, category_id }: Video): Promise<Video>{
         const repo = AppDataSource.getRepository(Video);
 
         const video = repo.create({

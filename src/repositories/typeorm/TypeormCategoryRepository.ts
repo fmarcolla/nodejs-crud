@@ -3,7 +3,7 @@ import { Category } from "../../entities/Category";
 import { ICategoryRepositories } from "../ICategoryRepositories";
 
 class TypeormCategoryRepository implements ICategoryRepositories {
-    async create({ name, description }: Category){
+    async create({ name, description }: Category): Promise<Category>{
         const repo = AppDataSource.getRepository(Category);
 
         const category = repo.create({
