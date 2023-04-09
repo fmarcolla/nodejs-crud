@@ -4,6 +4,9 @@ CRUD Application in NodeJs, PostgreSql and TypeORM
 # Run Project
 <!-- npm run dev -->
 
+# Run Tests
+<!-- npm test -->
+
 # Migrations
 <!-- Criar migration -->
 <!-- npm run typeorm migration:create -n src/database/migrations/NomeMigration -->

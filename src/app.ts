@@ -1,6 +1,13 @@
 import "reflect-metadata"; 
 import express, { NextFunction, Request, Response } from "express";
 import { routes } from "./routes"
+import { AppDataSource } from './database/data-source';
+
+AppDataSource.initialize()
+.then(() => {
+    console.log("database is runnnig!") 
+})
+.catch((error) => console.log(error));
 
 const app = express();
 
