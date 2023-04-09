@@ -1,13 +1,9 @@
-import "reflect-metadata"; 
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 import { routes } from "./routes"
-import { AppDataSource } from './database/data-source';
+import { InitDatabase } from './database/data-source';
 
-AppDataSource.initialize()
-.then(() => {
-    console.log("database is runnnig!") 
-})
-.catch((error) => console.log(error));
+InitDatabase();
 
 const app = express();
 
