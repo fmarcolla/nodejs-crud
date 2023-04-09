@@ -1,4 +1,3 @@
-import { Video } from "../entities/Video";
 import { IVideoRepository } from "../repositories/IVideoRepository";
 import { ICategoryRepository } from "../repositories/ICategoryRepository";
 
@@ -12,11 +11,17 @@ type VideoRequest = {
 export class CreateVideoService {
     constructor(private videoRepository: IVideoRepository, private categoryRepository: ICategoryRepository){}
 
-    async execute({ name, description, duration, category_id }: VideoRequest): Promise<Video | Error>{
+    async execute({ name, description, duration, category_id }: VideoRequest){
         const category = await this.categoryRepository.findById(category_id);
 
         if(!category) {
-            return new Error("Category does not exists");
+            throw new Error("Category does not exists");
+        }
+        
+        const videoExists = await this.videoRepository.findByName(name);
+        
+        if(videoExists) {
+            throw new Error("Video already exists");
         }
 
         const video = this.videoRepository.create({

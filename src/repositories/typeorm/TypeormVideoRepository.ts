@@ -36,6 +36,12 @@ class TypeormVideoRepository implements IVideoRepository {
 
         return videos;
     }
+
+    async findByName(name: string): Promise<Video> {
+        const video = await this.repo.findOneBy({ name });
+        
+        return video;
+    }
 }
 
 export { TypeormVideoRepository };
