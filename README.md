@@ -13,9 +13,9 @@ CRUD Application in NodeJs, PostgreSql and TypeORM
 <!-- npm run typeorm migration:create -n Nome -->
 
 <!-- Rodar migrations -->
-<!-- npm run typeorm -- -d ./src/database/data-source.ts  migration:run -->
+<!-- npm run typeorm -- -d ./src/database/config.ts  migration:run -->
 <!-- npm run typeorm migration:run -->
 
 <!-- Rollback da migration -->
-<!-- npm run typeorm -- -d ./src/database/data-source.ts  migration:revert -->
+<!-- npm run typeorm -- -d ./src/database/config.ts  migration:revert -->
 <!-- npm run typeorm migration:revert -->

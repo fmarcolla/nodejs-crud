@@ -1,9 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import { routes } from "./routes"
-import { InitDatabase } from './database/data-source';
-
-InitDatabase();
 
 const app = express();
 
